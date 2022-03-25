@@ -1,8 +1,8 @@
 import java.sql.*;
 import java.util.*;
 public class Movies {
-		static Movies MoviesObj = new Movies();
-		static Scanner ScannerObj = new Scanner(System.in);
+	static Movies MoviesObj = new Movies();
+	static Scanner ScannerObj = new Scanner(System.in);
 	public void CreateDatabase(){
 		try {
 			String url = "jdbc:sqlite:C:/sqlite/database";
@@ -11,10 +11,10 @@ public class Movies {
 				DatabaseMetaData meta = conn.getMetaData();
 				System.out.println("The driver name is " + meta.getDriverName());
 				System.out.println("A new database has been created.");
-            }
+            		}
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        	} catch (Exception e) {
+            		System.out.println(e.getMessage());
 		}
 	}
 	public static void CreateTable(){
@@ -63,32 +63,28 @@ public class Movies {
 			String url = "jdbc:sqlite:C:/sqlite/database";
 			Connection conn = DriverManager.getConnection(url);
  
-            // SQL command data stored in String datatype
-            String sql = "select * from movies";
-            PreparedStatement p = conn.prepareStatement(sql);
-            ResultSet rs = p.executeQuery();
+            		String sql = "select * from movies";
+            		PreparedStatement p = conn.prepareStatement(sql);
+            		ResultSet rs = p.executeQuery();
  
-            // Printing ID, name, email of customers
-            // of the SQL command above
-            System.out.println("moviename\t\tActor/Actressname\t\tDate of Release\t\tDirector name");
+ 		        System.out.println("moviename\t\tActor/Actressname\t\tDate of Release\t\tDirector name");
+
+            		while (rs.next()) {
  
-            // Condiion check
-            while (rs.next()) {
+                		String mname = rs.getString("moviename");
+                		String aname = rs.getString("actor_actress");
+               			String dor = rs.getString("dateOfRelease");
+                		String dname = rs.getString("directorname");
+                		System.out.println(mname+"\t\t\t"+aname+"\t\t\t\t"+dor+"\t\t"+dname);
+           		}
+        	}
  
-                String mname = rs.getString("moviename");
-                String aname = rs.getString("actor_actress");
-                String dor = rs.getString("dateOfRelease");
-                String dname = rs.getString("directorname");
-                System.out.println(mname+"\t\t\t"+aname+"\t\t\t\t"+dor+"\t\t"+dname);
-            }
-        }
+        	// Catch block to handle exception
+        	catch (SQLException e) {
  
-        // Catch block to handle exception
-        catch (SQLException e) {
- 
-            // Print exception pop-up on scrreen
-            System.out.println(e);
-        }
+            	// Print exception pop-up on scrreen
+            	System.out.println(e);
+        	}
 	}
 	public static void main(String args[]){
 		
